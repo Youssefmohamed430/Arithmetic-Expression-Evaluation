@@ -8,38 +8,54 @@ namespace Arithmetic_Expression_Evaluation
 {
     internal class InfixToPostfixConversion
     {
-        private string Expression;
         private Stack<char> stack;
-        public InfixToPostfixConversion(string expression)
-        {
-            Expression = expression;
-        }
+        public InfixToPostfixConversion()
+           => stack = new Stack<char>();
         public bool IsDigit (char  e)
              => (e >= '0' && e <= '9');
 
         public bool PriorityOperator(char op1,char op2)
         {
             if (op1 == '^')
-                return true;
+                return (op2 != '(');
             else if (op1 == '/' || op1 == '*')
-                return (op2 != '^'); 
-            else 
-                return (op2 != '^' && op2 != '*' && op2 != '/');
+                return (op2 != '^' && op2 != '('); 
+            else if (op1 == '+' || op1 == '-')
+                return (op2 != '^' && op2 != '*' && op2 != '/' && op2 != '(');
+            else
+                return false;
+            
         }
-        public void convertion(string exp)
+        public string convertion(string exp)
         {
             string postfix = "";
-            foreach(char c in exp)
+            for (int i = 0;i < exp.Length;i++ )
             {
-                if(IsDigit(c))
-                    postfix += c;
+                if (IsDigit(exp[i]))
+                    postfix += exp[i];
                 else
                 {
-                    if(stack.Count == 0)
-                        stack.Push(c);
-
+                    if (stack.Count == 0)
+                        stack.Push(exp[i]);
+                    else
+                    {
+                        if (exp[i] != ')') {
+                            while (stack.Count != 0 && PriorityOperator(stack.Peek(), exp[i]))
+                            { postfix += stack.Pop(); }
+                            stack.Push(exp[i]); 
+                        }
+                        else
+                        {
+                            while(stack.Peek()  != '(')
+                                postfix += stack.Pop();
+                            stack.Pop();
+                        }
+                    }
                 }
             }
+            while(stack.Count != 0)
+                postfix += stack.Pop();
+            return postfix;
         }
     }
 }

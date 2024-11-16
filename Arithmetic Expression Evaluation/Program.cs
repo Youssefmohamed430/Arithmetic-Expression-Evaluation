@@ -10,7 +10,9 @@ namespace Arithmetic_Expression_Evaluation
     {
         static void Main(string[] args)
         {
-
+            string str = Console.ReadLine();
+            InfixToPostfixConversion inf = new InfixToPostfixConversion();
+            Console.WriteLine(inf.convertion(str));
         }
     }
 }
