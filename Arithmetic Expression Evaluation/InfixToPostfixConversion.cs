@@ -28,32 +28,42 @@ namespace Arithmetic_Expression_Evaluation
         }
         public string convertion(string exp)
         {
-            string postfix = "";
+            string postfix = "",temp="";
+            Stack<int> eva = new Stack<int>();
             for (int i = 0;i < exp.Length;i++ )
             {
                 if (IsDigit(exp[i]))
-                    postfix += exp[i];
+                    temp += exp[i];
                 else
                 {
+                    if (temp != "")
+                    {
+                        postfix += temp;
+                        eva.Push(Convert.ToInt32(temp));
+                    }
+                    temp = "";
                     if (stack.Count == 0)
                         stack.Push(exp[i]);
                     else
                     {
-                        if (exp[i] != ')') {
+                        if (exp[i] != ')')
+                        {
                             while (stack.Count != 0 && PriorityOperator(stack.Peek(), exp[i]))
                             { postfix += stack.Pop(); }
-                            stack.Push(exp[i]); 
+                            stack.Push(exp[i]);
                         }
                         else
                         {
-                            while(stack.Peek()  != '(')
+                            while (stack.Peek() != '(')
                                 postfix += stack.Pop();
                             stack.Pop();
                         }
                     }
                 }
             }
-            while(stack.Count != 0)
+            postfix += temp;
+            eva.Push(Convert.ToInt32(temp));
+            while (stack.Count != 0)
                 postfix += stack.Pop();
             return postfix;
         }
