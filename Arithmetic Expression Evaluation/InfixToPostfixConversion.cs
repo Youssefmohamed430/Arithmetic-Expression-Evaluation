@@ -36,6 +36,15 @@ namespace Arithmetic_Expression_Evaluation
                     temp += exp[i];
                 else
                 {
+                    if (i == 0) { 
+                        temp += exp[i];
+                        continue; 
+                    }
+                    else if (!IsDigit(exp[i-1]))
+                    {
+                        temp += exp[i];
+                        continue;
+                    }
                     if (temp != "")
                     {
                         postfix += temp;
