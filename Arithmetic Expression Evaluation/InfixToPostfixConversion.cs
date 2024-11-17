@@ -40,16 +40,13 @@ namespace Arithmetic_Expression_Evaluation
                         temp += exp[i];
                         continue; 
                     }
-                    else if (!IsDigit(exp[i-1]))
+                    else if (exp[i] == '-' && !IsDigit(exp[i-1]) && exp[i-1] != ')')
                     {
                         temp += exp[i];
                         continue;
                     }
                     if (temp != "")
-                    {
-                        postfix += temp;
-                        eva.Push(Convert.ToInt32(temp));
-                    }
+                        postfix += temp+" ";
                     temp = "";
                     if (stack.Count == 0)
                         stack.Push(exp[i]);
@@ -58,22 +55,22 @@ namespace Arithmetic_Expression_Evaluation
                         if (exp[i] != ')')
                         {
                             while (stack.Count != 0 && PriorityOperator(stack.Peek(), exp[i]))
-                            { postfix += stack.Pop(); }
+                            { postfix += stack.Pop()+" "; }
                             stack.Push(exp[i]);
                         }
                         else
                         {
                             while (stack.Peek() != '(')
-                                postfix += stack.Pop();
+                                postfix += stack.Pop() + " ";
                             stack.Pop();
                         }
                     }
                 }
             }
-            postfix += temp;
-            eva.Push(Convert.ToInt32(temp));
+            if (temp != "")
+                postfix += temp + " ";
             while (stack.Count != 0)
-                postfix += stack.Pop();
+                postfix += stack.Pop() + " ";
             return postfix;
         }
     }
