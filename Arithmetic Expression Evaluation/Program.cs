@@ -12,7 +12,10 @@ namespace Arithmetic_Expression_Evaluation
         {
             string str = Console.ReadLine();
             InfixToPostfixConversion inf = new InfixToPostfixConversion();
-            Console.WriteLine(inf.convertion(str));
+            string exp = inf.convertion(str);
+            Evaluation ev = new Evaluation(exp);
+            Console.WriteLine(exp);
+            Console.WriteLine(ev.Result());
         }
     }
 }
