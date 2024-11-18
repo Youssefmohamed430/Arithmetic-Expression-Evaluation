@@ -15,5 +15,4 @@ The project emphasizes practical problem-solving skills, showcasing the applicat
 ## Conclusion
 This project is a clear demonstration of how data structures can be applied in real-world scenarios. It showcases the use of stacks to evaluate arithmetic expressions, highlighting problem-solving skills and the ability to adapt code to handle more advanced cases such as multi-digit numbers, negative values, and nested parentheses.
 
-Check out the project on [GitHub](your-github-link-here).
 
